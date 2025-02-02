@@ -1,0 +1,149 @@
+---
+title: "Exercise_1"
+format: html
+editor: visual
+---
+
+# Initialize
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(palmerpenguins) #load data
+library(ggthemes)
+```
+
+# Import Data
+
+```{r}
+df <- 
+  palmerpenguins::penguins
+df
+```
+
+```{r}
+nrow(df)
+
+```
+
+```{r}
+isTRUE("bill_depth_mm" %in% colnames(df))
+
+```
+
+```{r}
+ggplot(
+  data = df,
+  mapping = 
+    aes(
+      x = bill_length_mm,
+      y = bill_depth_mm
+    )
+  )+
+    geom_point(
+      aes(
+        color = species, 
+        shape = species
+        ),
+      na.rm = TRUE
+    ) +
+    geom_smooth(
+      method = "lm"
+    ) +
+    labs(
+      title = "Bill length and Bill depth",
+      subtitle = "Dimensions for Adelie, Chinstrap, and Gentoo Penguins",
+      caption = "Data come from the palmerpenguins package",
+      x = "Bill length (mm)", 
+      y = "Bill Depth (mm)",
+      color = "Species", 
+      shape = "Species"
+    ) +
+    scale_color_colorblind()
+
+```
+
+```{r}
+ggplot(
+  data = df,
+  mapping = 
+    aes(
+      x = bill_depth_mm,
+      y = species
+    )
+) +
+  geom_point(
+    na.rm = TRUE
+  )
+```
+
+```{r}
+ggplot(
+  data = penguins,
+  mapping = 
+    aes(
+      x = flipper_length_mm, 
+      y = body_mass_g
+      )
+) +
+  geom_point(
+    aes(
+      color = bill_depth_mm
+      )
+    ) +
+  geom_smooth(
+    method = "gam"
+    ) +
+  labs(
+    title = "Body mass and flipper length",
+    subtitle = "Dimensions for Adelie, Chinstrap, and Gentoo Penguins",
+    x = "Flipper length (mm)", 
+    y = "Body mass (g)",
+    
+  ) 
+```
+
+```{r}
+ggplot(
+  data = df,
+  mapping = 
+    aes(
+      x = flipper_length_mm, 
+      y = body_mass_g, 
+      color = island
+      )
+) +
+  geom_point() +
+  geom_smooth(se = FALSE)
+```
+
+```{r}
+ggplot(
+  data = penguins,
+  mapping = 
+    aes(
+      x = flipper_length_mm, 
+      y = body_mass_g
+      )
+) +
+  geom_point() +
+  geom_smooth()
+
+ggplot() +
+  geom_point(
+    data = penguins,
+    mapping = 
+      aes(
+        x = flipper_length_mm, 
+        y = body_mass_g
+        )
+  ) +
+  geom_smooth(
+    data = penguins,
+    mapping = 
+      aes(
+        x = flipper_length_mm, 
+        y = body_mass_g
+        )
+  )
+```
